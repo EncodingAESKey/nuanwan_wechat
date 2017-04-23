@@ -1,32 +1,64 @@
+var Util = require("../../common/util.js");
+
 Page({
 
     sending: false,
 
     data: {
         success: false,
-        address: "点击选择地址",
+        address: "点击选择，要勾选哦～",
         message: "",
         contact: "",
-        type: "sell",
+        type: "sell_fish",
         longitude: '',
         latitude: '',
         items: [
-            { name: 'buy', value: '求购' },
-            { name: 'sell', value: '转让', checked: true },
+            { name: '求购', value: 'buy_fish' },
+            { name: '转让', value: 'sell_fish', checked: true },
         ]
     },
 
     handleGetPosition: function() {
         var this_ = this;
         wx.chooseLocation({
-            success: function(res) {
-                this_.setData({
-                    address: res.name || '已选择',
+            success: Util.proxy(this.handleGetLocationSucc, this)
+        })
+    },
+
+    handleGetLocationSucc: function(res) {
+        if (res.name) {
+            res.longitude = res.longitude.toFixed(4);
+            res.latitude = res.latitude.toFixed(4);
+
+            this.locationInfo_ = {
+                address: res.name + '（' + res.address + '）',
+                longitude: res.longitude,
+                latitude: res.latitude
+            };
+
+            wx.request({
+                url: 'https://nuanwan.wekeji.cn/nuanwan/index.php/trade/check_location_valid', 
+                method: 'post',
+                data: {
                     longitude: res.longitude,
                     latitude: res.latitude
-                })
-            }
-        })
+                },
+                header: {'content-type': 'application/x-www-form-urlencoded'},
+                success: Util.proxy(this.handleGetValidSuccess, this)
+            });
+        }
+    },
+
+    handleGetValidSuccess: function(response) {
+        if (response.data && response.data.ret) {
+            this.setData(this.locationInfo_);
+        }else {
+            wx.showModal({
+              title: '提示',
+              content: '您选择的位置已被他人占用，请选择一个临近的位置作为替代。',
+              success: function(res) {}
+            })
+        }
     },
 
     handleRadioChange: function(event) {
@@ -42,7 +74,7 @@ Page({
     },
 
     handlePostTap: function(){;
-        if (this.data.address == "点击选择地址") {
+        if (this.data.address == "点击选择，要勾选哦～") {
             wx.showToast({title: "请选择您的地址"});
             return;
         }
@@ -58,6 +90,12 @@ Page({
     },
 
     sendRequset: function() {
+        if (this.sending) {
+            return;
+        }
+
+        this.sending = true;
+
         var postData = {
             address: this.data.address,
             latitude: this.data.latitude,
@@ -67,16 +105,18 @@ Page({
             type: this.data.type
         };
 
-        var this_ = this;
-
         wx.request({
-            url: 'https://nuanwan.wekeji.cn/nuanwan/add_info.php', 
+            url: 'https://nuanwan.wekeji.cn/nuanwan/index.php/trade/add_item', 
+            method: 'post',
             data: postData,
-            header: {'content-type': 'application/json'},
-            success: function(res) {
-               this_.setData({success: true});
-            }
+            header: {'content-type': 'application/x-www-form-urlencoded'},
+            success: Util.proxy(this.handleAddItemSucc, this)
         })
+    },
+
+    handleAddItemSucc: function(res) {
+        this.sending = false;
+        this.setData({success: true});
     }
 
 })
