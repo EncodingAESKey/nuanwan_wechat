@@ -1,4 +1,10 @@
 <view class="container">
+    <view class="head">
+        <view class="select"> 全部  </view>
+
+        <input class="input" type="text" placeholder="请输入内容"/>
+    </view>
+
     <map class="map" show-location id="map" controls="{{controls}}" bindcontroltap="handleControlTap" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" bindmarkertap="handleMarkerTap" scale="15"/>
 </view>
 <view class="dock" bindtap="handleBtnTap">发布信息</view>
