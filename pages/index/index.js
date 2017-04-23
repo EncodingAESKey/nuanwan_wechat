@@ -20,9 +20,19 @@ Page({
             iconPath: '/resources/center.png',
             position: {
                 left: 30,
-                top: deviceInfo.windowHeight - 120,
+                top: deviceInfo.windowHeight - 50,
                 width: 30,
                 height: 30
+            },
+            clickable: true
+        },{
+            id: 2,
+            iconPath: '/resources/publish.png',
+            position: {
+                left: deviceInfo.windowWidth / 2 - 70,
+                top: deviceInfo.windowHeight - 55,
+                width: 140,
+                height: 40
             },
             clickable: true
         }],
@@ -59,13 +69,11 @@ Page({
     handleControlTap: function(event) {
         if (event.controlId == 1) {
             this.mapCtx.moveToLocation();
+        }else if (event.controlId == 2) {
+            wx.navigateTo({
+                url: "/pages/postinfo/postinfo"
+            });
         }
-    },
-
-    handleBtnTap: function() {
-        wx.navigateTo({
-            url: "/pages/postinfo/postinfo"
-        });
     },
 
     onShow: function() {
@@ -105,39 +113,6 @@ Page({
         wx.navigateTo({
             url: "/pages/viewinfo/viewinfo?id=" + pointInfo.id
         }); 
-    },
-
-
-    sendRequest: function() {
-        var type = this.data.items[this.data.index].value;
-        var data = {
-            'type':   type,
-            'keyword': this.data.keyword
-        };
-
-        wx.request({
-            url: 'https://nuanwan.wekeji.cn/nuanwan/index.php/trade/get_list',
-            header: {'content-type': 'application/json'},
-            data: data,
-            success: Util.proxy(this.handleGetDataSucc, this)
-        })
-    },
-
-
-    sendSearchRequest: function(e) {
-        this.setData({
-            keyword: e.detail.value
-        });
-
-        this.sendRequest();
-    },
-
-
-    bindPickerChange: function(e) {
-        this.setData({
-            index: e.detail.value
-        });
-
-        this.sendRequest();
     }
+
 })
