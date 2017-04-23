@@ -70,3 +70,6 @@ page {
 	color: #00afc7;
 	text-align: center;
 }
+.backhome-btn {
+	
+}

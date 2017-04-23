@@ -117,6 +117,10 @@ Page({
     handleAddItemSucc: function(res) {
         this.sending = false;
         this.setData({success: true});
+    },
+
+    handleBackHome: function() {
+       wx.navigateBack({delta: 1})
     }
 
 })
