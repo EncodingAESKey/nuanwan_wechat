@@ -30,6 +30,7 @@ Page({
     },
 
     points: [],
+    mapCtx: null,
 
     onLoad: function() {
         wx.getLocation({
@@ -60,32 +61,34 @@ Page({
     },
 
     onShow: function() {
-        var this_ = this;
         wx.request({
-            url: 'https://nuanwan.wekeji.cn/nuanwan/get_info.php', 
+            url: 'https://nuanwan.wekeji.cn/nuanwan/index.php/trade/get_list', 
             header: {'content-type': 'application/json'},
-            success: function(res) {
-                var data = res.data,
-                    markers = [];
-                this_.points = data;
-                for (var i = 0; i < data.length; i++) {
-                    var item = data[i];
-                    markers.push({
-                        id: i,
-                        iconPath: "/resources/map.png",
-                        latitude: parseFloat(item.latitude),
-                        longitude: parseFloat(item.longitude),
-                        width: 30,
-                        height: 37
-                    });
-                }
-                this_.setData({
-                    markers: markers
-                });
-            }
+            success: Util.proxy(this.handleGetDataSucc, this)
         })
     },
 
+    handleGetDataSucc: function(res) {
+        var data = res.data,
+            markers = [];
+        
+        this.points = data;
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i],
+                imgName = item.type == "sell_fish" ? "sell_fish_icon" : "buy_fish_icon";
+            markers.push({
+                id: i,
+                iconPath: "/resources/" + imgName + ".png",
+                latitude: parseFloat(item.latitude),
+                longitude: parseFloat(item.longitude),
+                width: 30,
+                height: 30
+            });
+        }
+
+        this.setData({markers: markers});
+    },
 
     handleMarkerTap: function(event) {
         var markerId = event.markerId,
