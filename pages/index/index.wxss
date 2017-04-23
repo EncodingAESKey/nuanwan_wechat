@@ -36,7 +36,7 @@
 }
 
 .input {
-  width: 60%;
+  width: 70%;
   height: 24px;
   border: solid 1px #666;
 }

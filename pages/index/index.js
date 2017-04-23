@@ -26,7 +26,15 @@ Page({
             },
             clickable: true
         }],
-        markers: []
+        markers: [],
+        items: [
+            { name: '全部', value: ''},
+            { name: '求购', value: 'buy_fish' },
+            { name: '转让', value: 'sell_fish'}
+        ],
+        index: 0,
+        type: '',
+        keyword: ''
     },
 
     points: [],
@@ -97,7 +105,39 @@ Page({
         wx.navigateTo({
             url: "/pages/viewinfo/viewinfo?data=" + JSON.stringify(pointInfo)
         }); 
-    }
+    },
 
-    
+
+    sendRequest: function() {
+        var type = this.data.items[this.data.index].value;
+        var data = {
+            'type':   type,
+            'keyword': this.data.keyword
+        };
+
+        wx.request({
+            url: 'https://nuanwan.wekeji.cn/nuanwan/index.php/trade/get_list',
+            header: {'content-type': 'application/json'},
+            data: data,
+            success: Util.proxy(this.handleGetDataSucc, this)
+        })
+    },
+
+
+    sendSearchRequest: function(e) {
+        this.setData({
+            keyword: e.detail.value
+        });
+
+        this.sendRequest();
+    },
+
+
+    bindPickerChange: function(e) {
+        this.setData({
+            index: e.detail.value
+        });
+
+        this.sendRequest();
+    }
 })
