@@ -7,6 +7,7 @@
 	<view class="area">
 		<text class="area-title">类型</text>
 		<view class="area-info">
+
 			<radio-group class="radio-group" bindchange="handleRadioChange">
 	  			<label class="radio" wx:for="{{items}}">
 	    			<radio value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
@@ -33,5 +34,6 @@
 		<view class="succ-title"><icon class="succ-icon" type="success" size="40" color="#22cad3"/>恭喜您,发布成功！</view>
 		<view class="succ-item">1. 审核通过后信息将被展示在地图上</view>
 		<view class="succ-item">2. 信息有效期为30天,30天后自动清除</view>
+		<view class="btn" bindtap="handleBackHome">返回首页</view>
 	</view>
 </block>
