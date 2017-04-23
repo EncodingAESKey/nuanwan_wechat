@@ -95,7 +95,7 @@ Page({
             pointInfo = this.points[markerId];
 
         wx.navigateTo({
-            url: "/pages/viewinfo/viewinfo?data=" + JSON.stringify(pointInfo)
+            url: "/pages/viewinfo/viewinfo?id=" + pointInfo.id
         }); 
     }
 
