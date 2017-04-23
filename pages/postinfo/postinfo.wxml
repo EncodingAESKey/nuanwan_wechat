@@ -9,7 +9,7 @@
 		<view class="area-info">
 			<radio-group class="radio-group" bindchange="handleRadioChange">
 	  			<label class="radio" wx:for="{{items}}">
-	    			<radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+	    			<radio value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}
 	  			</label>
 			</radio-group>
 		</view>
