@@ -110,7 +110,7 @@ Page({
     onShareAppMessage: function () {
         return {
             title: '暖湾鱼友圈，三湖鱼友交易利器',
-            path: '/page/index/index',
+            path: '/pages/index/index',
             success: function(res) {},
             fail: function(res) {}
         }
