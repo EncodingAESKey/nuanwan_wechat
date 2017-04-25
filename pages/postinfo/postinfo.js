@@ -26,12 +26,12 @@ Page({
     },
 
     handleGetLocationSucc: function(res) {
-        if (res.name) {
+        if (res.longitude) {
             res.longitude = res.longitude.toFixed(4);
             res.latitude = res.latitude.toFixed(4);
 
             this.locationInfo_ = {
-                address: res.name + '（' + res.address + '）',
+                address: res.name || "已获取到您的定位坐标",
                 longitude: res.longitude,
                 latitude: res.latitude
             };
@@ -86,10 +86,10 @@ Page({
             wx.showToast({title: "请填写联系信息"});
             return;
         }
-        this.sendRequset();
+        this.sendAddItemRequset();
     },
 
-    sendRequset: function() {
+    sendAddItemRequset: function() {
         if (this.sending) {
             return;
         }
@@ -97,7 +97,7 @@ Page({
         this.sending = true;
 
         var postData = {
-            address: this.data.address,
+            address: (this.data.address == "已获取到您的定位坐标") ? "": this.data.address,
             latitude: this.data.latitude,
             longitude: this.data.longitude,
             message: this.data.message,

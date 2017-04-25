@@ -20,7 +20,7 @@ Page({
             iconPath: '/resources/center.png',
             position: {
                 left: 30,
-                top: deviceInfo.windowHeight - 50,
+                top: deviceInfo.windowHeight - 60,
                 width: 30,
                 height: 30
             },
@@ -30,21 +30,13 @@ Page({
             iconPath: '/resources/publish.png',
             position: {
                 left: deviceInfo.windowWidth / 2 - 70,
-                top: deviceInfo.windowHeight - 55,
+                top: deviceInfo.windowHeight - 65,
                 width: 140,
                 height: 40
             },
             clickable: true
         }],
-        markers: [],
-        items: [
-            { name: '全部', value: ''},
-            { name: '求购', value: 'buy_fish' },
-            { name: '转让', value: 'sell_fish'}
-        ],
-        index: 0,
-        type: '',
-        keyword: ''
+        markers: []
     },
 
     points: [],
@@ -113,6 +105,15 @@ Page({
         wx.navigateTo({
             url: "/pages/viewinfo/viewinfo?id=" + pointInfo.id
         }); 
+    },
+
+    onShareAppMessage: function () {
+        return {
+            title: '暖湾鱼友圈，三湖鱼友交易利器',
+            path: '/page/index/index',
+            success: function(res) {},
+            fail: function(res) {}
+        }
     }
 
 })
