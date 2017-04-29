@@ -26,9 +26,15 @@ Page({
     },
 
     handleGetLocationSucc: function(res) {
+        for (var i in res) {
+            console.log(i);
+            console.log(res[i]);
+        }
+
+
         if (res.longitude) {
-            res.longitude = res.longitude.toFixed(4);
-            res.latitude = res.latitude.toFixed(4);
+            res.longitude = (+res.longitude).toFixed(4);
+            res.latitude = (+res.latitude).toFixed(4);
 
             this.locationInfo_ = {
                 address: res.name || "已获取到您的定位坐标",

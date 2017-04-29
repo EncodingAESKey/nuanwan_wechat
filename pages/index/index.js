@@ -11,7 +11,7 @@ Page({
             iconPath: '/resources/pin.png',
             position: {
                 left: deviceInfo.windowWidth / 2 - 10,
-                top: (deviceInfo.windowHeight - 40) / 2 - 28,
+                top: (deviceInfo.windowHeight - 44) / 2 - 28,
                 width: 20,
                 height: 28
             }
@@ -23,16 +23,6 @@ Page({
                 top: deviceInfo.windowHeight - 60,
                 width: 30,
                 height: 30
-            },
-            clickable: true
-        },{
-            id: 2,
-            iconPath: '/resources/publish.png',
-            position: {
-                left: deviceInfo.windowWidth / 2 - 70,
-                top: deviceInfo.windowHeight - 65,
-                width: 140,
-                height: 40
             },
             clickable: true
         }],
@@ -61,11 +51,13 @@ Page({
     handleControlTap: function(event) {
         if (event.controlId == 1) {
             this.mapCtx.moveToLocation();
-        }else if (event.controlId == 2) {
-            wx.navigateTo({
-                url: "/pages/postinfo/postinfo"
-            });
         }
+    },
+
+    handlePostBtnClick: function() {
+        wx.navigateTo({
+            url: "/pages/postinfo/postinfo"
+        });
     },
 
     onShow: function() {
