@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/postinfo/postinfo",
-    "pages/viewinfo/viewinfo"
+    "pages/viewinfo/viewinfo",
+    "pages/search/search"
   ],
   "window":{
     "backgroundTextStyle":"light",

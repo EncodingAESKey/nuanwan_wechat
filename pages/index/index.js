@@ -20,7 +20,7 @@ Page({
             iconPath: '/resources/center.png',
             position: {
                 left: 30,
-                top: deviceInfo.windowHeight - 60,
+                top: deviceInfo.windowHeight - 100,
                 width: 30,
                 height: 30
             },
@@ -52,12 +52,6 @@ Page({
         if (event.controlId == 1) {
             this.mapCtx.moveToLocation();
         }
-    },
-
-    handlePostBtnClick: function() {
-        wx.navigateTo({
-            url: "/pages/postinfo/postinfo"
-        });
     },
 
     onShow: function() {

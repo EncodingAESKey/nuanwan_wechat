@@ -26,11 +26,6 @@ Page({
     },
 
     handleGetLocationSucc: function(res) {
-        for (var i in res) {
-            console.log(i);
-            console.log(res[i]);
-        }
-
 
         if (res.longitude) {
             res.longitude = (+res.longitude).toFixed(4);
@@ -108,7 +103,8 @@ Page({
             longitude: this.data.longitude,
             message: this.data.message,
             contact: this.data.contact,
-            type: this.data.type
+            type: this.data.type,
+            openid: wx.getStorageSync('openid')
         };
 
         wx.request({

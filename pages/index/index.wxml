@@ -2,5 +2,8 @@
     <map class="map" show-location id="map" controls="{{controls}}" bindcontroltap="handleControlTap" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" bindmarkertap="handleMarkerTap" scale="15"/>
 </view>
 
-<view class="dock" bindtap="handlePostBtnClick">发布信息</view>
+<view class="dock">
+	<navigator url="/pages/postinfo/postinfo" class="navigator-item navigator-item-checked">发布</navigator>
+	<navigator url="/pages/search/search" class="navigator-item navigator-item-normal">搜索</navigator>
+</view>
 
